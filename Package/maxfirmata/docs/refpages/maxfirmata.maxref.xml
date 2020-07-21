@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./c74ref.xsl" type="text/xsl"?>
+
+<c74object name="maxfirmata">
+	<digest>
+		firmata client
+	</digest>
+	<description>
+		Firmata client for Max
+	</description>
+	<discussion>
+		Refer to firmata protocol for more information -> https://github.com/firmata/protocol
+	</discussion>
+	<!--METADATA-->
+	<metadatalist>
+		<metadata name="author">
+			Malik Enes Safak
+		</metadata>
+		<metadata name="tag">
+			maxfirmata
+		</metadata>
+	</metadatalist>
+	<!--INLETS-->
+	<inletlist>
+		<inlet id="0" type="atom">
+			<digest>
+				Generate firmata commands
+			</digest>
+		</inlet>
+		<inlet id="1" type="int">
+			<digest>
+				Raw input
+			</digest>
+		</inlet>
+	</inletlist>
+	<!--OUTLETS-->
+	<outletlist>
+		<outlet id="0" type="atom">
+			<digest>
+				Decoded messages from incoming raw inlet
+			</digest>
+		</outlet>
+		<outlet id="1" type="int">
+			<digest>
+				Firmata commands encoded into raw bytes
+			</digest>
+		</outlet>
+	</outletlist>
+	<!--MESSAGES-->
+	<methodlist>
+		<method name="method">
+			<arglist>
+				<arg name="arg1" optional="0" id="0" type="symbol" />
+				<arg name="arg2" optional="0" id="1" type="int" />
+				<arg name="arg3" optional="1" id="2" type="int" />
+				<arg name="arg4" optional="1" id="2" type="int" />
+			</arglist>
+			<digest>
+				Small description
+			</digest>
+			<description>
+				Usage: [open index] or [open vendor-id product-id] or [open vendor-id product-id serial-number].
+				Long description
+			</description>
+		</method>
+		
+	</methodlist>
+</c74object>

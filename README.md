@@ -1,10 +1,18 @@
 # MaxFirmata
+Firmata Client for Max/MSP  
+This external is port of [PDFirmata](https://github.com/NullMember/PDFirmata)
 
-Firmata Client for Max/MSP.
+# TODO
+
+- [Implement Scheduler](https://github.com/firmata/protocol/blob/master/scheduler.md)
 
 # Description
 
-Max Firmata is Firmata Client for Max/MSP. Max Firmata supports most of features of Firmata protocol. Up to 4 software and 4 hardware UART, 1 I2C, 5 Encoder, 6 Stepper. Also Servos, Digital and Analog IO, PWM Output and so.
+MaxFirmata is Firmata Client for Cycling74's Max. MaxFirmata supports all features of Firmata protocol except Scheduler.
+
+## Compatibility
+
+Current MaxFirmata client is compatible with Firmata protocol 2.6.0
 
 # Arduino Instructions:
 
@@ -19,4 +27,4 @@ Max Firmata is Firmata Client for Max/MSP. Max Firmata supports most of features
 
 # MaxFirmata Instructions:
 
-All usage notes inside the MaxFirmata25Usage.maxpat file
+Look at the help file provided in this repo.
