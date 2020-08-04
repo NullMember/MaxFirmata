@@ -1,5 +1,5 @@
 # Attention
-This external is ready to use but there is no reference or help file. Also binaries are not released yet. If you want to use this version of this external please refer to [PDFirmata](https://github.com/NullMember/PDFirmata). You can still find older implementation in [v1.0 branch.](https://github.com/NullMember/MaxFirmata/tree/v1.0)
+This external is ready to use but reference is not covering all methods. If you want to use this version of this external please refer to [PDFirmata](https://github.com/NullMember/PDFirmata) for more information about methods. You can still find older implementation in [v1.0 branch.](https://github.com/NullMember/MaxFirmata/tree/v1.0)
 
 # MaxFirmata
 Firmata Client for Max/MSP  
