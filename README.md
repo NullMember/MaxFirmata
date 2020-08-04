@@ -1,3 +1,6 @@
+# Attention
+This external is ready to use but there is no reference or help file. Also binaries are not released yet. If you want to use this version of this external please refer to [PDFirmata](https://github.com/NullMember/PDFirmata). You can still find older implementation in [v1.0 branch.](https://github.com/NullMember/MaxFirmata/tree/v1.0)
+
 # MaxFirmata
 Firmata Client for Max/MSP  
 This external is port of [PDFirmata](https://github.com/NullMember/PDFirmata)
@@ -24,7 +27,3 @@ Current MaxFirmata client is compatible with Firmata protocol 2.6.0
 * Open the Firmata program by going to File -> Examples -> Firmata -> StandardFirmata or StandardFirmataPlus (Recommended)
 * Upload the Firmata program to your board by pressing the upload button or File -> Upload
 * When the upload is finished, you can close the arduino software.
-
-# MaxFirmata Instructions:
-
-Look at the help file provided in this repo.
