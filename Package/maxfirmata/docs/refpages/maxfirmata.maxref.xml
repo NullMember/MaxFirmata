@@ -31,6 +31,9 @@
 			<digest>
 				Raw input
 			</digest>
+			<description>
+				This input should connected to (serial) output.
+			</description>
 		</inlet>
 	</inletlist>
 	<!--OUTLETS-->
@@ -44,11 +47,356 @@
 			<digest>
 				Firmata commands encoded into raw bytes
 			</digest>
+			<description>
+				This output should connected to (serial) input.
+			</description>
 		</outlet>
 	</outletlist>
 	<!--MESSAGES-->
 	<methodlist>
-		<method name="method">
+		<method name="version">
+			<digest>
+				Request firmata version
+			</digest>
+			<description>
+				Usage: [version]
+				Request firmata version from host device
+			</description>
+		</method>
+		<method name="firmware">
+			<digest>
+				Request firmware name
+			</digest>
+			<description>
+				Usage: [firmware]
+				Request firmware (file) name from host device
+			</description>
+		</method>
+		<method name="capability">
+			<digest>
+				Request pin capabilities
+			</digest>
+			<description>
+				Usage: [capability]
+				Request all pins capabilities from host device. 
+			</description>
+		</method>
+		<method name="sampling">
+			<arglist>
+				<arg name="period" optional="0" id="0" type="int" />
+			</arglist>
+			<digest>
+				Set sampling period
+			</digest>
+			<description>
+				Usage: [sampling period]
+				Set firmata firmware sampling period (in ms)
+			</description>
+		</method>
+		<method name="analogMap">
+			<digest>
+				Request analog map of pins
+			</digest>
+			<description>
+				Usage: [analogMap]
+				Request all pins analog pin equivalent. Non-analog capable pins will return 127.
+			</description>
+		</method>
+		<method name="pinMode">
+			<arglist>
+				<arg name="pin" optional="0" id="0" type="int" />
+				<arg name="type" optional="0" id="1" type="symbol" />
+			</arglist>
+			<digest>
+				Set pin mode
+			</digest>
+			<description>
+				Usage: [pinMode pin type]
+				Set pin mode. Valid modes: INPUT, OUTPUT, ANALOG, PWM, SERVO, SHIFT, I2C, ONEWIRE, STEPPER, ENCODER, SERIAL, PULLUP
+			</description>
+		</method>
+		<method name="digitalWrite">
+			<arglist>
+				<arg name="pin" optional="0" id="0" type="int" />
+				<arg name="state" optional="0" id="1" type="int" />
+			</arglist>
+			<digest>
+				Set OUTPUT pin state
+			</digest>
+			<description>
+				Usage: [digitalWrite pin 0] or [digitalWrite pin 1]
+				Set digital pin's state to HIGH or LOW.
+			</description>
+		</method>
+		<method name="analogWrite">
+			<arglist>
+				<arg name="pin" optional="0" id="0" type="int" />
+				<arg name="value" optional="0" id="1" type="int" />
+			</arglist>
+			<digest>
+				Write analog value to pin
+			</digest>
+			<description>
+				Usage: [analogWrite pin value]
+				Write analog (PWM for most of the cases) value to pin. Pin must be configured as PWM, SERVO or ANALOG. You can check capability request for compatibility.
+			</description>
+		</method>
+		<method name="analogIn">
+			<arglist>
+				<arg name="analog-pin" optional="0" id="0" type="int" />
+				<arg name="state" optional="0" id="1" type="int" />
+			</arglist>
+			<digest>
+				Poll analog value in every sampling period
+			</digest>
+			<description>
+				Usage: [analogIn analog-pin state]
+				Poll analog value in every sampling period from analog capable pin. These pin numbers are different from normal pins. You can check analog pin equivalents of normal pins using [analogMap]. State is 0 for stopping polling, 1 for enabling polling.
+			</description>
+		</method>
+		<method name="digitalIn">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="int" />
+				<arg name="state" optional="0" id="1" type="int" />
+			</arglist>
+			<digest>
+				Poll states of port in every sampling period
+			</digest>
+			<description>
+				Usage: [digitalIn port state]
+				Poll states of pins connected to port. Pins in ports can be different for each development board. Check official documentations for more information.
+			</description>
+		</method>
+		<method name="pinRead">
+			<arglist>
+				<arg name="pin" optional="0" id="0" type="int" />
+			</arglist>
+			<digest>
+				Request value and mode of pin.
+			</digest>
+			<description>
+				Usage: [pinRead pin]
+				Request current value or state and mode of pin.
+			</description>
+		</method>
+		<method name="serial">
+			<arglist>
+				<arg name="config" optional="1" id="0" type="symbol" />
+				<arg name="print" optional="1" id="1" type="symbol" />
+				<arg name="println" optional="1" id="2" type="symbol" />
+				<arg name="write" optional="1" id="3" type="symbol" />
+				<arg name="read" optional="1" id="4" type="symbol" />
+				<arg name="reply" optional="1" id="5" type="symbol" />
+				<arg name="close" optional="1" id="6" type="symbol" />
+				<arg name="flush" optional="1" id="7" type="symbol" />
+				<arg name="listen" optional="1" id="8" type="symbol" />
+			</arglist>
+			<digest>
+				Base serial command
+			</digest>
+			<description>
+				You must combine this method with one of the arguments to achieve functionality. Look for specific sections below to get more information. 
+				Don't exceed your board's maximum buffer length to prevent errors. For any serial command port is HW0 through HW7 or SW0 through SW7.
+				Don't forget to configure pin to specific pinMode before using.
+			</description>
+		</method>
+		<method name="serial config">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+				<arg name="baud" optional="0" id="1" type="int" />
+				<arg name="rx-pin" optional="1" id="2" type="int" />
+				<arg name="tx-pin" optional="1" id="2" type="int" />
+			</arglist>
+			<digest>
+				Configure serial port
+			</digest>
+			<description>
+				Usage: [serial config port baud] or [serial config port baud rx-pin tx-pin].
+				Configure serial port. If rx and tx pins are pre-defined no need to send rx and tx pin. Otherwise required.
+			</description>
+		</method>
+		<method name="serial print">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+				<arg name="symbol" optional="0" id="1" type="symbol" />
+			</arglist>
+			<digest>
+				Send ASCII chars without new line
+			</digest>
+			<description>
+				Usage: [serial print port symbol] or [serial print port symbol0 symbol1 ...].
+				Send one or multiple ASCII words without new line. You can pass single argument to send multiple words using quote symbols or multiple arguments without quotes.
+			</description>
+		</method>
+		<method name="serial println">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+				<arg name="symbol" optional="0" id="1" type="symbol" />
+			</arglist>
+			<digest>
+				Send ASCII chars with new line
+			</digest>
+			<description>
+				Usage: [serial println port symbol] or [serial println port symbol0 symbol1 ...].
+				Same as [serial print] with new line.
+			</description>
+		</method>
+		<method name="serial write">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+				<arg name="byte" optional="0" id="1" type="int" />
+			</arglist>
+			<digest>
+				Write one or multiple byte to port
+			</digest>
+			<description>
+				Usage: [serial write port byte] or [serial write port byte0 byte1 ...].
+				Accepts multiple byte arguments.
+			</description>
+		</method>
+		<method name="serial read">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+				<arg name="mode" optional="0" id="1" type="int" />
+				<arg name="maxBytes" optional="1" id="2" type="int" />
+			</arglist>
+			<digest>
+				Read multiple bytes from port
+			</digest>
+			<description>
+				Usage: [serial read port mode] or [serial read port mode maxBytes].
+				Read bytes from serial port. mode 0 is continuous read, 1 is stop after read. if maxBytes defined it will return maximum number of bytes from serial buffer. Otherwise will return all buffer contents.
+			</description>
+		</method>
+		<method name="serial close">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+			</arglist>
+			<digest>
+				Close serial connection.
+			</digest>
+			<description>
+				Usage: [serial close port].
+			</description>
+		</method>
+		<method name="serial flush">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+			</arglist>
+			<digest>
+				Flush serial port buffer.
+			</digest>
+			<description>
+				Usage: [serial flush port].
+			</description>
+		</method>
+		<method name="serial listen">
+			<arglist>
+				<arg name="port" optional="0" id="0" type="symbol" />
+			</arglist>
+			<digest>
+				Listen serial port.
+			</digest>
+			<description>
+				Usage: [serial listen port].
+				Required for Arduino SoftwareSerial but may not required for other libraries.
+			</description>
+		</method>
+		<method name="I2C">
+			<arglist>
+				<arg name="rw" optional="1" id="0" type="symbol" />
+				<arg name="delay" optional="1" id="1" type="symbol" />
+				<arg name="config" optional="1" id="2" type="symbol" />
+			</arglist>
+			<digest>
+				Base I2C command
+			</digest>
+			<description>
+				You must combine this method with one of the arguments to achieve functionality. Look for specific sections below to get more information. 
+				Don't exceed your board's maximum buffer length to prevent errors. Don't forget to configure pin to specific pinMode before using.
+			</description>
+		</method>
+		<method name="I2C rw">
+			<arglist>
+				<arg name="address" optional="0" id="0" type="int" />
+				<arg name="autorestart" optional="0" id="1" type="int" />
+				<arg name="rwmode" optional="0" id="2" type="int" />
+				<arg name="byte" optional="1" id="2" type="int" />
+			</arglist>
+			<digest>
+				Write to or read from I2C device.
+			</digest>
+			<description>
+				Usage: [I2C rw address autorestart rwmode] or [I2C rw address autorestart rwmode byte0 byte1 byte2 ...].
+				Address can be 7-bit or 10-bit. autorestart 0 is stop, 1 is restart. There are four rwmode. rwmode "wr" is write only, "ro" is read once, "rc" is read continuously, "sr" is stop reading
+			</description>
+		</method>
+		<method name="I2C delay">
+			<arglist>
+				<arg name="delayms" optional="0" id="0" type="int" />
+			</arglist>
+			<digest>
+				Delay between read and write operations.
+			</digest>
+			<description>
+				Usage: [I2C delay delayms].
+				Some devices may require delay between read and write operations. delayms is delay in miliseconds.
+			</description>
+		</method>
+		<method name="I2C config">
+			<arglist>
+				<arg name="arg0" optional="0" id="0" type="int" />
+			</arglist>
+			<digest>
+				I2C configuration
+			</digest>
+			<description>
+				Usage: [I2C config arg0 arg1 ...].
+				Configuration arguments are firmware specific. 
+			</description>
+		</method>
+		<method name="servo">
+			<arglist>
+				<arg name="config" optional="1" id="0" type="symbol" />
+				<arg name="write" optional="1" id="1" type="symbol" />
+			</arglist>
+			<digest>
+				Base servo command
+			</digest>
+			<description>
+				You must combine this method with one of the arguments to achieve functionality. Look for specific sections below to get more information. 
+				Don't forget to configure pin to specific pinMode before using.
+			</description>
+		</method>
+		<method name="servo config">
+			<arglist>
+				<arg name="pin" optional="0" id="0" type="int" />
+				<arg name="minPulse" optional="0" id="1" type="int" />
+				<arg name="maxPulse" optional="0" id="2" type="int" />
+			</arglist>
+			<digest>
+				Configure servo.
+			</digest>
+			<description>
+				Usage: [servo config pin minPulse maxPulse].
+				Configure defined pins pulse lengths for min and max position.
+			</description>
+		</method>
+		<method name="servo write">
+			<arglist>
+				<arg name="pin" optional="0" id="0" type="int" />
+				<arg name="value" optional="0" id="1" type="int" />
+			</arglist>
+			<digest>
+				Write value to servo pin.
+			</digest>
+			<description>
+				Usage: [servo write pin value].
+				If value is smaller than minPulse, value is considered to be an angle in degrees. Otherwise value is pulse length. This command generate same raw bytes as analogWrite.
+			</description>
+		</method>
+		
+		<!--<method name="method">
 			<arglist>
 				<arg name="arg1" optional="0" id="0" type="symbol" />
 				<arg name="arg2" optional="0" id="1" type="int" />
@@ -59,10 +407,10 @@
 				Small description
 			</digest>
 			<description>
-				Usage: [open index] or [open vendor-id product-id] or [open vendor-id product-id serial-number].
+				Usage: [] or [].
 				Long description
 			</description>
-		</method>
+		</method>-->
 		
 	</methodlist>
 </c74object>

@@ -55,10 +55,10 @@ dkms.conf
 libs/max/c74support
 
 # Builds
-externals/*.mxe
-externals/*.mxe64
-externals/hidapi.mxo/*
-Package/hidapi/externals/*
+externals/*
+Package/maxfirmata/externals/*
+Package/maxfirmata/README.md
+*.zip
 
 # .vscode directory
 .vscode

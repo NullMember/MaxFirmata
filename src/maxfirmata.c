@@ -225,11 +225,11 @@ void * maxfirmata_new(){
 
 	x->rawOut = intout((t_object *) x);
     x->decOut = outlet_new((t_object *) x, NULL);
-    /*
+    
     object_post((t_object *)x, "maxfirmata: Firmata client for Max MSP");
     object_post((t_object *)x, "Copyright (C) 2017-2020  Malik Enes Safak");
-    object_post((t_object *)x, "https://github.com/NullMember/PDFirmata");
-    */
+    object_post((t_object *)x, "https://github.com/NullMember/MaxFirmata");
+    
     return x;
 }
 
@@ -791,7 +791,7 @@ void maxfirmata_I2C(t_maxfirmata * x, t_symbol * s, long argc, t_atom * argv){
                 if(strcmp(rwMode, "wr") == 0){ rwModeInt = 0; }
                 else if(strcmp(rwMode, "ro") == 0){ rwModeInt = 1; }
                 else if(strcmp(rwMode, "rc") == 0){ rwModeInt = 2; }
-                else if(strcmp(rwMode, "rw") == 0){ rwModeInt = 3; }
+                else if(strcmp(rwMode, "sr") == 0){ rwModeInt = 3; }
                 else{ error("Unknown rw mode"); return; }
                 int LSB = addr & 0x7F;
                 int MSB = 0;
