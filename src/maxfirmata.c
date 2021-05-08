@@ -841,6 +841,7 @@ void maxfirmata_I2C(t_maxfirmata * x, t_symbol * s, long argc, t_atom * argv){
                 }
                 buffer[argc + 2] = 0xF7;
                 writeBuffer(x, buffer, argc + 3);
+                free(buffer);
             }
         }
     }
@@ -1346,6 +1347,7 @@ void maxfirmata_multistepper(t_maxfirmata * x, t_symbol * s, long argc, t_atom *
                 buffer[(positionCount * 5) + 4] = 0xF7;
                 writeBuffer(x, buffer, ((positionCount * 5) + 5));
                 free(buffer);
+                free(positions);
             }
         }
         /* multistep stop group */
@@ -1734,6 +1736,7 @@ void decSysex(t_maxfirmata * x){
             i++;
         }
         outlet_list(x->decOut, NULL, (((x->rawCounter - 2) / 2) + 2), buffer);
+        free(buffer);
     }
     /* serial read response converted to string */
     if(x->buffer[0] == 0x60){
