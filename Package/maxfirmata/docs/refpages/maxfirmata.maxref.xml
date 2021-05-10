@@ -160,23 +160,23 @@
 				<arg name="state" optional="0" id="1" type="int" />
 			</arglist>
 			<digest>
-				Poll states of port in every sampling period
+				Poll pin values of port in every sampling period
 			</digest>
 			<description>
 				Usage: [digitalIn port state]
-				Poll states of pins connected to port. Pins in ports can be different for each development board. Check official documentations for more information.
+				Poll value of pins connected to port. Pins in ports can be different for each development board. Check official documentations for more information.
 			</description>
 		</method>
-		<method name="pinRead">
+		<method name="pinState">
 			<arglist>
 				<arg name="pin" optional="0" id="0" type="int" />
 			</arglist>
 			<digest>
-				Request value and mode of pin.
+				Request state and mode of pin.
 			</digest>
 			<description>
-				Usage: [pinRead pin]
-				Request current value or state and mode of pin.
+				Usage: [pinState pin]
+				Request current state and mode of pin.
 			</description>
 		</method>
 		<method name="serial">
