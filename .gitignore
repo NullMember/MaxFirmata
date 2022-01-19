@@ -67,3 +67,6 @@ Package/maxfirmata/README.md
 .vs
 Release
 x64
+
+# cmake stuff
+build/
